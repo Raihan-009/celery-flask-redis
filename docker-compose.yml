@@ -1,0 +1,32 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .  
+      dockerfile: Dockerfile.app  
+    ports:
+      - "5009:5009"
+    depends_on:
+      - celery-worker
+    networks:
+      - celerynetwork
+
+  celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.celery
+    depends_on:
+      - redis
+    networks:
+      - celerynetwork
+
+  redis:
+    image: redis
+    container_name: celery-redis 
+    ports:
+      - "6379:6379"
+    networks:
+      - celerynetwork
+
+networks:
+  celerynetwork:
