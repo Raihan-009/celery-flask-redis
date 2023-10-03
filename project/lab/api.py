@@ -14,6 +14,6 @@ def sub():
     result = val.get()
     return f'Hello, World!, {result}'
 
-@app.route('/about')
+@app.route('/')
 def about():
-    return 'About Us'
+    return 'Hello World!'
